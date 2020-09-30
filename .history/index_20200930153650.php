@@ -172,7 +172,7 @@ elseif(isset($_GET["act"]) && $_GET["act"] == "add_orders"){
                                 if(isset($_SESSION["intLine"])){
                                 for($i=0; $i<=(int)$_SESSION["intLine"]; $i++){
                                     if(!empty($_SESSION["product_id"][$i])){
-                                        $arr_product[$_SESSION["product_id"][$i]]["product_price"] * $_SESSION["qty"][$i];
+                                        $total += $arr_product[$_SESSION["product_id"][$i]]["product_price"] * $_SESSION["qty"][$i];
                                                 
                                                
                                          ?><br><?php

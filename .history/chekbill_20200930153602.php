@@ -61,7 +61,7 @@ foreach($array_product_id as $key => $data){
 $sql = "UPDATE
 `bill`
 SET
-`bill_total` = (SELECT SUM(product_price) as price FROM products,orders WHERE products.product_id = orders.product_id AND orders.bill_id = $lastID),
+`bill_total` = (SELECT SUM(product_price) as price FROM products,orders WHERE products.product_id = orders.product_id),
 `bill_num` = (SELECT SUM(num) AS num FROM `orders`)
 
 WHERE
@@ -165,7 +165,7 @@ $sum_num = $con->query($sql);
 	</footer>
 	
 </div>
-<button class="" type="button" onclick="history.back()">Back</button>
+<button class="button" type="button" onclick="history.back()">Back</button>
 <a href="#" target="_blank" class="link">ติดต่อพนักงาน</a>
 
 <button class="button" type="button" onclick="restart()">Replay</button><br>
