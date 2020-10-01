@@ -155,21 +155,21 @@ session_start();
                                     <div class="form-label-group">
                                         <input type="text" id="username" name="username" class="form-control"
                                             placeholder="Username" required autofocus>
-                                        <label for="username">รหัส</label>
+                                        <label for="username">Username</label>
                                     </div>
 
                                     <div class="form-label-group">
                                         <input type="password" id="password" name="password" class="form-control"
                                             placeholder="Password" required>
-                                        <label for="password">รหัสผ่าน</label>
+                                        <label for="password">Password</label>
                                     </div>
                                     <button
                                         class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                        type="submit">สำหรับพนักงาน
+                                        type="submit">Login
                                     </button>
                                     <button
                                         class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                        onclick="ForUser()" >สำหรับลูกค้า
+                                        o type="submit">สำหรับลูกค้า
                                     </button>
                                 </form>
                             </div>

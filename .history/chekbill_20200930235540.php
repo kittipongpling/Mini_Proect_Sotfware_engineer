@@ -126,9 +126,9 @@ $bill_date = $con->query($sql);
             <div class="printer" >
    </div>
 			<div class="header__meta receipts-wrapper">
-				<span class="header__date"><?php foreach($bill_date as $data){ echo $data['time'];} ?></span>
+				<span class="header__date"><?phpecho $bill_date['time']; ?></span>
 				<span class="header__serial">หมายเลขบิล-<?php echo $lastID; ?></span>
-				<span class="header__number">sdsdsdsdsdsd</span>
+				<span class="header__number">25042016</span>
 			</div>
 		</div>
 		<div class="header__greeting">

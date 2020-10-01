@@ -98,13 +98,13 @@ orders.bill_id = $lastID";
 $sum_num = $con->query($sql);
 
 $sql ="SELECT
-bill.bill_date AS time
+bill.bill_date
 FROM
 `bill`
 INNER JOIN orders ON bill.bill_id = orders.bill_id
 WHERE
 bill.bill_id = $lastID GROUP BY bill.bill_id";
-$bill_date = $con->query($sql);
+$sum_num = $con->query($sql);
 
 
 
@@ -126,9 +126,9 @@ $bill_date = $con->query($sql);
             <div class="printer" >
    </div>
 			<div class="header__meta receipts-wrapper">
-				<span class="header__date"><?php foreach($bill_date as $data){ echo $data['time'];} ?></span>
+				<span class="header__date"><?php echo $result_data['time']; ?></span>
 				<span class="header__serial">หมายเลขบิล-<?php echo $lastID; ?></span>
-				<span class="header__number">sdsdsdsdsdsd</span>
+				<span class="header__number">25042016</span>
 			</div>
 		</div>
 		<div class="header__greeting">

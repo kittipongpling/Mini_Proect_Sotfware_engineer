@@ -155,21 +155,21 @@ session_start();
                                     <div class="form-label-group">
                                         <input type="text" id="username" name="username" class="form-control"
                                             placeholder="Username" required autofocus>
-                                        <label for="username">รหัส</label>
+                                        <label for="username">Username</label>
                                     </div>
 
                                     <div class="form-label-group">
                                         <input type="password" id="password" name="password" class="form-control"
                                             placeholder="Password" required>
-                                        <label for="password">รหัสผ่าน</label>
+                                        <label for="password">Password</label>
                                     </div>
                                     <button
                                         class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                        type="submit">สำหรับพนักงาน
+                                        type="submit">Login
                                     </button>
                                     <button
                                         class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                        onclick="ForUser()" >สำหรับลูกค้า
+                                        type="history.">สำหรับลูกค้า
                                     </button>
                                 </form>
                             </div>
@@ -181,10 +181,10 @@ session_start();
     </div>
 
     <script>
-        function ForUser() {
-            window.location.assign("./index.php")
+        function newDoc() {
+        window.location.assign("https://www.w3schools.com")
         }
-    </script>
+</script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>

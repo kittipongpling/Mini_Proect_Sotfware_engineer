@@ -97,16 +97,6 @@ WHERE
 orders.bill_id = $lastID";
 $sum_num = $con->query($sql);
 
-$sql ="SELECT
-bill.bill_date AS time
-FROM
-`bill`
-INNER JOIN orders ON bill.bill_id = orders.bill_id
-WHERE
-bill.bill_id = $lastID GROUP BY bill.bill_id";
-$bill_date = $con->query($sql);
-
-
 
 
 // $arr_product = array();
@@ -126,24 +116,31 @@ $bill_date = $con->query($sql);
             <div class="printer" >
    </div>
 			<div class="header__meta receipts-wrapper">
-				<span class="header__date"><?php foreach($bill_date as $data){ echo $data['time'];} ?></span>
-				<span class="header__serial">หมายเลขบิล-<?php echo $lastID; ?></span>
-				<span class="header__number">sdsdsdsdsdsd</span>
+				<span class="header__date"><?phpecho $result_data['time']; }?></span>
+				<span class="header__serial">0f-113</span>
+				<span class="header__number">25042016</span>
 			</div>
 		</div>
 		<div class="header__greeting">
-			<span class="header__name">FOOD PANCAKE</span>
-			<span class="header__count">ขอบคุณที่ใช้บริการนะครับ.</span>
+			<span class="header__name">โอ ตามสั่ง</span>
+			<span class="header__count">ขอบคุณที่ใช้บริการนะคะ.</span>
 			<span class="header__border"></span>
 		</div>
 		<div class="header__spacing"></div>
 	</header>
 	
 	<section class="cart">
-			<h2 class="cart__header">บิลเงินสด:</h2>
-			
+			<h2 class="cart__header">Cart:</h2>
 			<ol class="list">
-			
+            
+				<li class="list__item">
+					<span class="list__name"></span>
+					<span class="list__num"> รายการ </span>
+					<span class="list__price"></span>
+                </li>
+            
+			</ol>	
+			<ol class="list">
             <?php foreach($result_data as $rows){ ?>
 				<li class="list__item">
 					<span class="list__name"><?php echo $rows["name"];?></span>

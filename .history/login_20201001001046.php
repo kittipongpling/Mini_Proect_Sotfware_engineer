@@ -161,7 +161,7 @@ session_start();
                                     <div class="form-label-group">
                                         <input type="password" id="password" name="password" class="form-control"
                                             placeholder="Password" required>
-                                        <label for="password">รหัสผ่าน</label>
+                                        <label for="password">Password</label>
                                     </div>
                                     <button
                                         class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
