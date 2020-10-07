@@ -88,9 +88,11 @@ elseif(isset($_GET["act"]) && $_GET["act"] == "add_orders"){
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">โต๊ะ</a>
                 </li> -->
+                <?php if(isset($_GET['act'])){?>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="" data-target="#">รายการย้อนหลัง</a>
+                    <a  class="nav-link" href="./admin_bill.php" data-toggle="" data-target="#">รายการย้อนหลัง</a>
                 </li>
+                <?php } ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

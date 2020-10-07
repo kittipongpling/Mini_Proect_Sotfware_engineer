@@ -11,7 +11,8 @@ $num = $result->num_rows;
 if($num > 0){
     $row = $result->fetch_assoc();
     $_SESSION["account_info"] = $row;
-    header("location:index.php");
+    header("location:index.php?act=true");
+    $_SESSION["position"] = "true";
 }else{
     $_SESSION["error_login"] = "ชื่อผู้ใช้งานหรือรหัสไม่ถูกต้อง";
     header("location:login.php");
