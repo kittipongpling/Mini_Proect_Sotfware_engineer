@@ -79,26 +79,26 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
                         </div>
                         <table class="table">
   <thead>
-    <tr>
-      <th scope="col">หมายเลขบิล</th>
-      <th scope="col">วันที่สั่งอาหาร</th>
-      <th scope="col">จัดการ</th>
-    </tr>
+            <tr>
+            <th scope="col">หมายเลขบิล</th>
+            <th scope="col">วันที่สั่งอาหาร</th>
+            <th scope="col">จัดการ</th>
+            </tr>
   </thead>
   <tbody>
-  <?php 
-    foreach($result as $data){
-    
-  ?>
-    <tr>
-      <th scope="row"><?php echo $data['id']; ?></th>
-      <td><?php echo $data['time']; ?></td>
-      <td>
-      <button class="view_data">SHOW</button>
-      <button>e</button>
-      <button>d</button>
-      </td>
-    </tr>
+                <?php 
+                    foreach($result as $data){
+                    
+                ?>
+        <tr>
+            <th scope="row"><?php echo $data['id']; ?></th>
+            <td><?php echo $data['time']; ?></td>
+            <td>
+            <button class="view_data editbtn">SHOW</button>
+            <button>e</button>
+            <button>d</button>
+            </td>
+        </tr>
     <?php } ?>
   </tbody>
 </table>
@@ -135,8 +135,7 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
                                                $_SESSION["total"] = $total;
                                             } 
                                                
-                                         ?><br><?php
-                                         
+                                        
                                 ?>
                                     <tr>
                                         <td name="n1"><a class="text-danger"
@@ -178,43 +177,55 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
         </div>
     </section>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">เลือกโต๊ะ</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> รายการอาหาร </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+        <form action="#" method="POST">
+
+            <div class="modal-body">
+
+                <input type="hidden" name="update_id" id="update_id">
+
+                <div class="form-group">
+                    <label> First Name </label>
+                    <input type="text" name="fname" id="fname" class="form-control" placeholder="Enter First Name">
                 </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="row">
-                        <?php
-                            $sql =  "SELECT * FROM tables WHERE 1";
-                            $result = $con->query($sql);
-                            while($rows = $result->fetch_assoc()){
-                        ?>
-                            <div class="col-2 pb-2"><button class="btn btn-info btn-block btn-table-no" data-table-no="<?php echo $rows["table_no"];?>"><?php echo $rows["table_no"];?></button></div>
-                        <?php } ?>
-                        </div>
-                    </div>
+
+                <div class="form-group">
+                    <label> Last Name </label>
+                    <input type="text" name="lname" id="lname" class="form-control" placeholder="Enter Last Name">
+                </div>
+
+                <div class="form-group">
+                    <label> Course </label>
+                    <input type="text" name="" id="course" class="form-control" placeholder="Enter Course">
+                </div>
+
+                <div class="form-group">
+                    <label> Phone Number </label>
+                    <input type="text" name="contact" id="contact" class="form-control" placeholder="Enter Phone Number">
                 </div>
             </div>
-        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" name="updatedata" class="btn btn-primary">Update Data</button>
+            </div>
+        </form>
+
     </div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-  Launch static backdrop modal
-</button>
-    <div class="modal-body">
-        <h5>Popover in a modal</h5>
-            
-            <h5>Tooltips in a modal</h5>
-        <p><a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> have tooltips on hover.</p>
-    </div>
-    
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
@@ -255,6 +266,32 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
             $("#exampleModal").modal('hide')
         })
     </script>
+    <script>
+
+$(document).ready(function () {
+    $('.editbtn').on('click', function() {
+        
+        $('#editmodal').modal('show');
+
+        
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            console.log(data);
+
+            $('#update_id').val(data[0]);
+            $('#fname').val(data[1]);
+            $('#lname').val(data[2]);
+            $('#course').val(data[3]);
+            $('#contact').val(data[4]);
+    });
+});
+
+</script>
+
 </body>
 
 </html>
