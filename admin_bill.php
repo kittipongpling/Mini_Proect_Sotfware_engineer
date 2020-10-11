@@ -78,30 +78,32 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
                             รายการอาหาร
                         </div>
                         <table class="table">
-  <thead>
-            <tr>
-            <th scope="col">หมายเลขบิล</th>
-            <th scope="col">วันที่สั่งอาหาร</th>
-            <th scope="col">จัดการ</th>
-            </tr>
-  </thead>
-  <tbody>
-                <?php 
+                            <thead>
+                                <tr>
+                                    <th scope="col">หมายเลขบิล</th>
+                                    <th scope="col">วันที่สั่งอาหาร</th>
+                                    <th scope="col">จัดการ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
                     foreach($result as $data){
                     
                 ?>
-        <tr>
-            <th scope="row"><?php echo $data['id']; ?></th>
-            <td><?php echo $data['time']; ?></td>
-            <td>
-            <button class="view_data editbtn">SHOW</button>
-            <button>e</button>
-            <button>d</button>
-            </td>
-        </tr>
-    <?php } ?>
-  </tbody>
-</table>
+                                <tr>
+                                    <th scope="row"><?php echo $data['id']; ?></th>
+                                    <td><?php echo $data['time']; ?></td>
+                                    <input type="hidden" name="employee_id" id="employee_id" />  
+
+                                    <td>
+                                        <button class=" view_data">SHOW</button>
+                                        <button>e</button>
+                                        <button>d</button>
+                                    </td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="col-lg-4 order-1">
@@ -123,9 +125,9 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
                                         <th class="text-right">ราคา</th>
                                     </tr>
                                 </thead>
-                                <tbody >
+                                <tbody>
                                     <form action="?act=add_orders" methos="GET">
-                                    <?php
+                                        <?php
                                 $total = 0;
                                 if(isset($_SESSION["intLine"])){
                                 for($i=0; $i<=(int)$_SESSION["intLine"]; $i++){
@@ -137,20 +139,20 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
                                                
                                         
                                 ?>
-                                    <tr>
-                                        <td name="n1"><a class="text-danger"
-                                                href="?act=delete&product_id=<?php echo $_SESSION["product_id"][$i];?>&line=<?php echo $i;?>">ลบ</a>
-                                            <?php echo $arr_product[$_SESSION["product_id"][$i]]["product_name"];
+                                        <tr>
+                                            <td name="n1"><a class="text-danger"
+                                                    href="?act=delete&product_id=<?php echo $_SESSION["product_id"][$i];?>&line=<?php echo $i;?>">ลบ</a>
+                                                <?php echo $arr_product[$_SESSION["product_id"][$i]]["product_name"];
                                             $_SESSION['tae'] = $arr_product[$_SESSION["product_id"][$i]]["product_name"];
                                             ?></td>
-                                        <td class="text-right add_orders"><input type="number" name="n2" id=""
-                                                value="<?php echo $_SESSION["qty"][$i];?>"
-                                                style=" text-align: right;  width: 80px;"></td>
-                                        <td class="text-right" name="n3">
-                                            ฿<?php echo $arr_product[$_SESSION["product_id"][$i]]["product_price"];?>
-                                        </td>
-                                    </tr>
-                                    <?php 
+                                            <td class="text-right add_orders"><input type="number" name="n2" id=""
+                                                    value="<?php echo $_SESSION["qty"][$i];?>"
+                                                    style=" text-align: right;  width: 80px;"></td>
+                                            <td class="text-right" name="n3">
+                                                ฿<?php echo $arr_product[$_SESSION["product_id"][$i]]["product_price"];?>
+                                            </td>
+                                        </tr>
+                                        <?php 
                                  
                                 }
                                  
@@ -158,73 +160,63 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
                                     // $my_array=array($_SESSION)
                                 
                                 ?>
-                                    <tr>
-                                        <td class="text-right" colspan="2">รวม</td>
-                                        <td class="text-right">฿<?php echo $total;
+                                        <tr>
+                                            <td class="text-right" colspan="2">รวม</td>
+                                            <td class="text-right">฿<?php echo $total;
                                         // $_SESSION['total'] = $total;
                                         ?></td>
-                                    </tr>
+                                        </tr>
                                 </tbody>
                             </table>
-                            <button class="btn btn-success btn-lg btn-block" type="submit" onclick="#">  เพิ่มเมนู</button>
+                            <button class="btn btn-success btn-lg btn-block" type="submit" onclick="#">
+                                เพิ่มเมนู</button>
                             <button class="btn btn-danger btn-lg btn-block"
                                 onClick="window.location='?act=cancel'">ยกเลิก</button>
-                                </form>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+<!-- ********************************************************************** -->
+                        <div id="dataModal" class="modal fade">  
 
-    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"> รายการอาหาร </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-        <form action="#" method="POST">
-
-            <div class="modal-body">
-
-                <input type="hidden" name="update_id" id="update_id">
-
-                <div class="form-group">
-                    <label> First Name </label>
-                    <input type="text" name="fname" id="fname" class="form-control" placeholder="Enter First Name">
+    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> รายการอาหาร </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
 
-                <div class="form-group">
-                    <label> Last Name </label>
-                    <input type="text" name="lname" id="lname" class="form-control" placeholder="Enter Last Name">
-                </div>
+                <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                     <h4 class="modal-title">วิชาที่สอน</h4>  
+                </div>  
+                <div class="modal-body" id="employee_detail">  
+                </div>  
+                <div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+                </div>  
+           </div>  
+      </div>  
 
-                <div class="form-group">
-                    <label> Course </label>
-                    <input type="text" name="" id="course" class="form-control" placeholder="Enter Course">
-                </div>
-
-                <div class="form-group">
-                    <label> Phone Number </label>
-                    <input type="text" name="contact" id="contact" class="form-control" placeholder="Enter Phone Number">
-                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" name="updatedata" class="btn btn-primary">Update Data</button>
-            </div>
-        </form>
-
+        </div>
     </div>
-  </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+    </script>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -237,11 +229,12 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <script>
-        function add_orders(){
+        function add_orders() {
             var x = document.getElementById("add_orders").value;
-            
+
             console.log(x);
         }
+
         function startTime() {
             var today = new Date();
             var h = today.getHours();
@@ -261,37 +254,52 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
             return i;
         }
 
-        $(".btn-table-no").on("click", function(){
+        $(".btn-table-no").on("click", function () {
             $(".table-no span").text($(this).attr("data-table-no"));
             $("#exampleModal").modal('hide')
         })
     </script>
     <script>
+        $(document).ready(function () {
+            $('.editbtn').on('click', function () {
 
-$(document).ready(function () {
-    $('.editbtn').on('click', function() {
-        
-        $('#editmodal').modal('show');
+                $('#editmodal').modal('show');
 
-        
-            $tr = $(this).closest('tr');
 
-            var data = $tr.children("td").map(function() {
-                return $(this).text();
-            }).get();
+                $tr = $(this).closest('tr');
 
-            console.log(data);
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
 
-            $('#update_id').val(data[0]);
-            $('#fname').val(data[1]);
-            $('#lname').val(data[2]);
-            $('#course').val(data[3]);
-            $('#contact').val(data[4]);
-    });
-});
+                console.log(data);
 
-</script>
-
+                $('#update_id').val(data[0]);
+                $('#fname').val(data[1]);
+                $('#lname').val(data[2]);
+                $('#course').val(data[3]);
+                $('#contact').val(data[4]);
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '.view_data', function () {
+            var employee_id = $(this).attr("id");
+            if (employee_id != '') {
+                $.ajax({
+                    url: "select.php",
+                    method: "POST",
+                    data: {
+                        employee_id: employee_id
+                    },
+                    success: function (data) {
+                        $('#employee_detail').html(data);
+                        $('#dataModal').modal('show');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
