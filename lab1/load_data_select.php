@@ -44,12 +44,50 @@
                           <option value="">Show All Product</option>  
                           <?php echo fill_brand($connect); ?>  
                      </select>  
+                     <select name="" id="">  
+                          <option value="">Show Orders</option>  
+                           
+                     </select>  
                      <br /><br />  
                      <div class="row" id="show_product">  
                           
                      </div>  
                 </h3>  
            </div>  
+          <?php
+          $sql = "SELECT
+          product_name,
+          bill.bill_id as id
+      FROM
+          bill LEFT JOIN orders ON bill.bill_id = orders.bill_id
+           LEFT JOIN products ON orders.product_id = products.product_id
+      WHERE bill.bill_date = '2020-09-26' order by bill.bill_id";
+
+$result = mysqli_query($connect, $sql);  
+
+
+?>
+
+                              <?php
+                                   foreach($result as $key =>$data){
+                              ?>
+          <div class="col-md-3">
+               <div style="border:1px solid #ccc; padding:20px; margin-bottom:20px;">
+                    <?php
+                         for($result )
+                              echo $data['id'][''];
+                          
+                         
+                    ?>
+               </div>
+          </div>
+                                   <?php } ?>
+
+
+
+
+
+
       </body>  
  </html>  
  <script>  

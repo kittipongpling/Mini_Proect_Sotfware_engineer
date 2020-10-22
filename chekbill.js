@@ -82,3 +82,6 @@ tl.fromTo(receipt, .5, {
 		y: 50,
 		autoAlpha: 0
 	}, '-=.4');
+
+
+	
