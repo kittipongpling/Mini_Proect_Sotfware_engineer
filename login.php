@@ -23,7 +23,12 @@ session_start();
         }
 
         .bg-image {
-            background-image: url('https://source.unsplash.com/WEQbe2jBg40/600x1200');
+            background-image: url('https://pic.pikbest.com/01/54/65/43bpIkbEsTExu.jpg-0.jpg!bw340');
+            background-size: cover;
+            background-position: center;
+        }
+        .bg-clover {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRsas_JrIghY-cl6-UUxEanJwgQjvvWeaZJaA&usqp=CAU');
             background-size: cover;
             background-position: center;
         }
@@ -136,10 +141,10 @@ session_start();
         <div class="row no-gutter">
             <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
             <div class="col-md-8 col-lg-6">
-                <div class="login d-flex align-items-center py-5">
-                    <div class="container">
+                <div class="login d-flex align-items-center py-5 ">
+                    <div class="container ">
                         <div class="row">
-                            <div class="col-md-9 col-lg-8 mx-auto">
+                            <div class="col-md-9 col-lg-8 mx-auto ">
                             <?php
                                 if(isset($_SESSION["error_login"])){
                             ?>
@@ -150,12 +155,12 @@ session_start();
                                     </button>
                                 </div>
                             <?php unset($_SESSION["error_login"]);} ?>
-                                <h3 class="login-heading mb-4">Welcome POS!</h3>
+                                <h2 class="login-heading mb-4">ยินดีต้อนรับ <br></h2> <h4>ร้านอาหารอันดับ 1 ในย่านนี้</h4>
                                 <form action="process_login.php" method="POST">
                                     <div class="form-label-group">
                                         <input type="text" id="username" name="username" class="form-control"
                                             placeholder="Username" required autofocus>
-                                        <label for="username">รหัส</label>
+                                        <label for="username">รหัสผู้ใช้</label>
                                     </div>
 
                                     <div class="form-label-group">
@@ -169,7 +174,7 @@ session_start();
                                     </button>
                                     <button
                                         class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
-                                        onclick="ForUser()" >สำหรับลูกค้า
+                                        onclick="ForUser()" >สำหรับลูกค้า (คลิ๊กเลย)
                                     </button>
                                 </form>
                             </div>

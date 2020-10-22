@@ -7,6 +7,34 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
  $result = $con->query($sql);
 
 ?>
+<?php   
+ //load_data_select.php  
+ function fill_brand($con)  
+ {  
+      $output = '';  
+      $sql = "SELECT * FROM bill group by `bill_date`";  
+      $result = mysqli_query($con, $sql);  
+      while($row = mysqli_fetch_array($result))  
+      {  
+           $output .= '<option value="'.$row["bill_date"].'">'.$row["bill_date"].'</option>';  
+      }  
+      return $output;  
+ }  
+ function fill_product($con)  
+ {  
+      $output = '';  
+      $sql = "SELECT * FROM product";  
+      $result = mysqli_query($con, $sql);  
+      while($row = mysqli_fetch_array($result))  
+      {  
+           $output .= '<div class="col-md-3">';  
+           $output .= '<div style="border:1px solid #ccc; padding:20px; margin-bottom:20px;">'.$row["product_name"].'';  
+           $output .=     '</div>';  
+           $output .=     '</div>';  
+      }  
+      return $output;  
+ }  
+ ?>  
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +45,8 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
     <title>FOOD PANCAKE</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
     <style>
         input[type='number'] {
             border: 0px;
@@ -45,10 +75,10 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
                     <a class="nav-link" href="admin_bill.php" data-toggle="" data-target="#">รายการย้อนหลัง</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         ตั้งค่า
-                    </a>
+                    </a> -->
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">ไม่มีฟังก์ชั่นนี้</a>
                     </div>
@@ -74,36 +104,45 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
             <div class="row">
                 <div class="col-lg-8 order-lg-1 order-2">
                     <div class="card">
-                        <div class="card-header">
-                            รายการอาหาร
-                        </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">หมายเลขบิล</th>
-                                    <th scope="col">วันที่สั่งอาหาร</th>
-                                    <th scope="col">จัดการ</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php 
-                    foreach($result as $data){
-                    
-                ?>
-                                <tr>
-                                    <th scope="row"><?php echo $data['id']; ?></th>
-                                    <td><?php echo $data['time']; ?></td>
-                                    <input type="hidden" name="employee_id" id="employee_id" />  
+                   <br><br>
+                           
+                                    <h3>  
+                                    <!-- <input type="date" name="brand" id="brand"> -->
+                                        <select name="brand" id="brand">  
+                                            <option value="">กรุณาเลือกวัน</option>  
+                                            <?php echo fill_brand($con); ?>  
+                                        </select>  
+                                        <br /><br />  
 
-                                    <td>
-                                        <button class=" view_data">SHOW</button>
-                                        <button>e</button>
-                                        <button>d</button>
-                                    </td>
-                                </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+                                        <div  class="row" id="show_product" >  
+                                            
+                                        </div>  
+                                    </h3>  
+                                    <h3>  
+                                    <!-- <input type="date" name="brand" id="brand"> -->
+                                    <?php
+                                        $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
+                                        $result = $con->query($sql);
+                                    ?>
+                                        <select name="tae" id="tae">  
+                                            <option value="">กรุณาเลือกวัน</option> 
+                                            <?php
+                                            foreach($result as $data){ 
+                                            ?>
+                                            <option value="<?php echo $data['id'] ?>"><?php echo $data['id'] ?></option>  
+                                            <?php } ?>
+                                             
+                                        </select>  
+                                        <br /><br />  
+                                        
+                                        <div  class="row" id="show_product" >  
+                                            
+                                        </div>  
+                                        <a name="id_data" id="id_data" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  ดูข้อมูล
+</a>
+                                    </h3>  
+                            
                     </div>
                 </div>
                 <div class="col-lg-4 order-1">
@@ -116,59 +155,16 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
                                 <?php echo date("Y-m-d");?>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <table id="order" class="table">
-                                <thead>
-                                    <tr>
-                                        <th>รายการ</th>
-                                        <th class="text-right">จำนวน</th>
-                                        <th class="text-right">ราคา</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <form action="?act=add_orders" methos="GET">
-                                        <?php
-                                $total = 0;
-                                if(isset($_SESSION["intLine"])){
-                                for($i=0; $i<=(int)$_SESSION["intLine"]; $i++){
-                                    if(!empty($_SESSION["product_id"][$i])){
-                                        $total +=  $arr_product[$_SESSION["product_id"][$i]]["product_price"] * $_SESSION["qty"][$i];
-                                            if($total >0){
-                                               $_SESSION["total"] = $total;
-                                            } 
-                                               
-                                        
-                                ?>
-                                        <tr>
-                                            <td name="n1"><a class="text-danger"
-                                                    href="?act=delete&product_id=<?php echo $_SESSION["product_id"][$i];?>&line=<?php echo $i;?>">ลบ</a>
-                                                <?php echo $arr_product[$_SESSION["product_id"][$i]]["product_name"];
-                                            $_SESSION['tae'] = $arr_product[$_SESSION["product_id"][$i]]["product_name"];
-                                            ?></td>
-                                            <td class="text-right add_orders"><input type="number" name="n2" id=""
-                                                    value="<?php echo $_SESSION["qty"][$i];?>"
-                                                    style=" text-align: right;  width: 80px;"></td>
-                                            <td class="text-right" name="n3">
-                                                ฿<?php echo $arr_product[$_SESSION["product_id"][$i]]["product_price"];?>
-                                            </td>
-                                        </tr>
-                                        <?php 
-                                 
-                                }
-                                 
-                                }} 
-                                    // $my_array=array($_SESSION)
+                        <div  class="card-body">
+                                <form  enctype="multipart/form-data" class="form-horizontal" action="./upload_photo.php" method="post">
+                                <label for=""></label>ชื่อเมนู <input  style="border:1px solid #ccc; padding:20px; margin-bottom:20px;" type="text" name="name"><br>
+                                <label for=""></label>รายละเอียด <input style="border:1px solid #ccc; padding:20px; margin-bottom:20px;" type="text" name="detail"><br>
+                                   
+                                <label for=""></label>ราคา <input style="border:1px solid #ccc; padding:20px; margin-bottom:20px;" type="number" name="price" onchange="setTwoNumberDecimal(event)"  step="0.25" value="0.00" /><br>
+                                    <label for=""></label>รูปภาพประกาพ
+                                    <input style="border:1px solid #ccc; padding:20px; margin-bottom:20px;" type="file" name="image" ><br>
                                 
-                                ?>
-                                        <tr>
-                                            <td class="text-right" colspan="2">รวม</td>
-                                            <td class="text-right">฿<?php echo $total;
-                                        // $_SESSION['total'] = $total;
-                                        ?></td>
-                                        </tr>
-                                </tbody>
-                            </table>
-                            <button class="btn btn-success btn-lg btn-block" type="submit" onclick="#">
+                            <button name="avatar_upload" class="btn btn-success btn-lg btn-block" type="submit" >
                                 เพิ่มเมนู</button>
                             <button class="btn btn-danger btn-lg btn-block"
                                 onClick="window.location='?act=cancel'">ยกเลิก</button>
@@ -180,37 +176,39 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
         </div>
     </section>
 <!-- ********************************************************************** -->
-                        <div id="dataModal" class="modal fade">  
 
-    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> รายการอาหาร </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+   <!-- Button trigger modal -->
+   
 
-                <div class="modal-dialog">  
-           <div class="modal-content">  
-                <div class="modal-header">  
-                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
-                     <h4 class="modal-title">วิชาที่สอน</h4>  
-                </div>  
-                <div class="modal-body" id="employee_detail">  
-                </div>  
-                <div class="modal-footer">  
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
-                </div>  
-           </div>  
-      </div>  
+                                          
 
-            </div>
-        </div>
+
+<!-- Modal -->
+<form action="./tae.php" method="POST">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">รายการอาหาร</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                            <div  class="row" id="show_data" name="show_data" >  
+                                                                    
+                                </div> 
+      </div>
+      <div class="modal-footer">
+      <button type="submit" class="btn btn-secondary" >delete</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </div>
+</div>
+</form>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
         integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
     </script>
@@ -219,9 +217,7 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
     </script>
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
     </script>
@@ -229,6 +225,10 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <script>
+function setTwoNumberDecimal(event) {
+    this.value = parseFloat(this.value).toFixed(2);
+}
+
         function add_orders() {
             var x = document.getElementById("add_orders").value;
 
@@ -259,47 +259,44 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
             $("#exampleModal").modal('hide')
         })
     </script>
-    <script>
-        $(document).ready(function () {
-            $('.editbtn').on('click', function () {
+    
+    <script>  
+                        $(document).ready(function(){  
+                            $('#tae').click(function(){  
+                                var id_data = $(this).val();  
+                                $.ajax({  
+                                        url:"select.php",  
+                                        method:"POST",  
+                                        data:{id_data:id_data},  
+                                        success:function(data){  
+                                            $('#show_data').html(data); 
 
-                $('#editmodal').modal('show');
+                                        }  
+                                });  
+                            });  
+                        });  
+                        </script>  
 
 
-                $tr = $(this).closest('tr');
+                            <script>  
+                        $(document).ready(function(){  
+                            $('#brand').change(function(){  
+                                var brand_id = $(this).val();  
+                                $.ajax({  
+                                        url:"lab1/load_data.php",  
+                                        method:"POST",  
+                                        data:{brand_id:brand_id},  
+                                        success:function(data){  
+                                            $('#show_product').html(data);
 
-                var data = $tr.children("td").map(function () {
-                    return $(this).text();
-                }).get();
+                                            console.log(data)
+                                        }  
+                                });  
+                            });  
+                        });  
+                        </script>
 
-                console.log(data);
-
-                $('#update_id').val(data[0]);
-                $('#fname').val(data[1]);
-                $('#lname').val(data[2]);
-                $('#course').val(data[3]);
-                $('#contact').val(data[4]);
-            });
-        });
-    </script>
-    <script>
-        $(document).on('click', '.view_data', function () {
-            var employee_id = $(this).attr("id");
-            if (employee_id != '') {
-                $.ajax({
-                    url: "select.php",
-                    method: "POST",
-                    data: {
-                        employee_id: employee_id
-                    },
-                    success: function (data) {
-                        $('#employee_detail').html(data);
-                        $('#dataModal').modal('show');
-                    }
-                });
-            }
-        });
-    </script>
+ 
 </body>
 
 </html>

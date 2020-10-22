@@ -1,52 +1,33 @@
-<?php include('../BaseModel/condb.php'); ?>
+<?php  
+ //load_data.php  
+ $connect = mysqli_connect("localhost", "root", "", "system_pos");  
+ $output = '';  
 
-  <?php 
- $_POST["employee_id"];
- 
- 
-     //  echo $_POST["employee_id"];
-      $output = '';  
-      $query = "SELECT
-      product_name
-  FROM
-      orders
-  LEFT JOIN 
-       products 
-  
-  ON
-      orders.product_id = products.product_id
-  WHERE 
-       bill_id = 72";  
+ if(isset($_POST["id_data"]))  
+ {  
 
-     //  $query = "SELECT * FROM `user` WHERE `Id_card` = '".$_POST["employee_id"]."'";  
+      if($_POST["id_data"] != '')  
+      {  
+        //    $sql = "SELECT * FROM product WHERE brand_id = '".$_POST["brand_id"]."'";  
+           $sql = "SELECT
+           products.product_name as name
+       FROM
+           orders,products
+       WHERE
+           orders.product_id = products.product_id AND orders.bill_id = '".$_POST["id_data"]."'";
 
-      $result = mysqli_query($connect, $query);  
-      if(mysqli_num_rows($result)>=1){
-      $output .= '  
-      <div class="table-responsive">  
-           <table class="table table-bordered">'; 
-    
+           
+      }  
+      else  
+      {  
+        //    $sql = "SELECT * FROM product"; 
+        echo "555555"; 
+      }  
+      $result = mysqli_query($connect, $sql);  
       while($row = mysqli_fetch_array($result))  
       {  
-           
-          
-           $output .= '  
-                    
-                <tr>  
-                     <td width="30%"><label>วิชา</label></td>  
-                     <td width="70%">'.$row["name"].'</td>  
-                     
-                </tr>  
-               
-           ';  
+           $output .= '<div class="col-md-3"><div style="border:1px solid #ccc; padding:20px; margin-bottom:20px;">'.$row["name"].'</div></div>';  
       }  
-      $output .= '  
-           </table>  
-      </div>  
-      ';  
       echo $output;  
-     }else{
-          echo "ไม่มีสอน";
-     }
-
- ?>
+ }  
+ ?>  
