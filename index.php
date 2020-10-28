@@ -65,6 +65,8 @@ elseif(isset($_GET["act"]) && $_GET["act"] == "add_orders"){
     <title>FOOD PANCAKE</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <style>
         input[type='number'] {
             border: 0px;
@@ -89,9 +91,13 @@ elseif(isset($_GET["act"]) && $_GET["act"] == "add_orders"){
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal">โต๊ะ</a>
                 </li> -->
-                <?php if(isset($_GET['act'])){?>
+                <?php if(isset($_GET['act']) || isset($_GET["p_id"])){?>
+               
                 <li class="nav-item">
-                    <a  class="nav-link" href="./admin_bill.php" data-toggle="" data-target="#">รายการย้อนหลัง</a>
+                    <a class="nav-link" href="admin_bill.php" data-toggle="" data-target="#">ดูรายการ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="menu.php" data-toggle="" data-target="#">จัดการเมนู</a>
                 </li>
                 <?php } ?>
                 <li class="nav-item dropdown">
@@ -293,6 +299,38 @@ elseif(isset($_GET["act"]) && $_GET["act"] == "add_orders"){
             $("#exampleModal").modal('hide')
         })
     </script>
+     <?php
+        //เช็อกว่่ามีการส่งค่า Get p_id หรือไม่ (?p_id=xxx)
+        if (isset($_GET["p_id"])) {
+
+            // คำสั่ง sql ในการลบข้อมูล ตาราง tbl_products โดยจะลบข้อมูลสินค้า p_id ที่ส่งมา
+            $sql = "DELETE FROM `products` WHERE `product_id`={$_GET["p_id"]}";
+
+            if (mysqli_query($con, $sql)) {
+                echo
+                    "<script> 
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'ลบข้อมูลสำเร็จ',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(()=> location = 'index.php')
+                </script>";
+                //header('Location: index.php');
+            } else {
+                echo
+                    "<script> 
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'ลบข้อมูลไม่สำเร็จ', 
+                    })
+                </script>";
+            }
+
+            mysqli_close($con);
+        }
+        ?>
 </body>
 
 </html>

@@ -46,6 +46,9 @@ $sql = "SELECT * FROM `products`";
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
     <style>
         input[type='number'] {
             border: 0px;
@@ -74,7 +77,7 @@ $sql = "SELECT * FROM `products`";
                     <a class="nav-link" href="admin_bill.php" data-toggle="" data-target="#">ดูรายการ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="admin_bill.php" data-toggle="" data-target="#">จัดการเมนู</a>
+                    <a class="nav-link" href="menu.php" data-toggle="" data-target="#">จัดการเมนู</a>
                 </li>
                 <li class="nav-item dropdown">
                     <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -129,7 +132,18 @@ $sql = "SELECT * FROM `products`";
                             <td><?php echo $data['product_detail']; ?></td>
                             <td><?php echo $data['product_price']; ?></td>
                             <td><img width="70px" height="50px" src="<?php echo $data['product_photo']; ?>" alt=""></td>
-                            <td><?php echo $data['product_photo']; ?></td>
+                            
+                            <td >
+                    <div class="btn-group btn-group-sm">
+                        
+                        <a class="btn btn-warning" href="formEdit.php?p_id=<?php echo $data['product_id']; ?>">
+                            <i class="fas fa-edit"> </i>
+                        </a>
+                        <a class="btn btn-danger" href="index.php?p_id=<?php echo $data['product_id']; ?>">
+                            <i class="fas fa-trash"> </i>
+                        </a>
+                    </div>
+                            </td>
                             </tr>
                            
                         <?php } ?>
@@ -287,7 +301,48 @@ function setTwoNumberDecimal(event) {
                             });  
                         });  
                         </script>
+<?php
+if (isset($_GET["p_id"])) {
+    $con = new mysqli("localhost", "root", "" , "system_pos");
+    // คำสั่ง sql ในการลบข้อมูล ตาราง tbl_products โดยจะลบข้อมูลสินค้า p_id ที่ส่งมา
+    $sql = "DELETE FROM tbl_products WHERE p_id={$_GET["p_id"]}";
 
+    if (mysqli_query($con, $sql)) {
+        echo
+            "<script> 
+            Swal.fire({
+                icon: 'warning',
+                title: 'ยืนยันการลบข้อมูล?',
+                text: 'ท่านเเน่ใจว่า ท่าต้องการลบข้อมูล!',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ใช่',
+                cancelButtonText: 'ไม่!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'ลบข้อมูลสำเร็จ!',
+                    'ท่านได้ลบข้อมูลเรียบร้อย',
+                    'success'
+                    ).then(()=> location = 'index.php')
+                } 
+            }); 
+        </script>";
+        //header('Location: index.php');
+    } else {
+        echo
+            "<script> 
+            Swal.fire({
+                icon: 'error',
+                title: 'ลบข้อมูลไม่สำเร็จ', 
+            })
+        </script>";
+    }
+
+    mysqli_close($conn);
+}
+?>
  
 </body>
 

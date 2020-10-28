@@ -38,7 +38,9 @@ print_r($verifyimg);
              '$price',
              '$uploadfile'
                 )");
+?>
 
+<?php
     } else {
         echo "Possible file upload attack!<br>";
     }
@@ -50,3 +52,10 @@ print_r($verifyimg);
 }
 
 ?>
+
+<script>
+
+  setTimeout(function(){ alert("Hello"); });
+
+window.history.back();
+</script>

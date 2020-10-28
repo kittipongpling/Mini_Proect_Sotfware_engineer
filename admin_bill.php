@@ -203,7 +203,7 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
                                 </div> 
       </div>
       <div class="modal-footer">
-      <a  class="btn btn-secondary" >delete</a>
+      <!-- <a  class="btn btn-secondary" >delete</a> -->
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
