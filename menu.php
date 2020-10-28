@@ -3,9 +3,8 @@ $con = new mysqli("localhost", "root", "" , "system_pos");
 $con->set_charset("utf-8");
 
 
-$sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
+$sql = "SELECT * FROM `products`";
  $result = $con->query($sql);
-
 ?>
 <?php   
  //load_data_select.php  
@@ -75,7 +74,7 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
                     <a class="nav-link" href="admin_bill.php" data-toggle="" data-target="#">ดูรายการ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="menu.php" data-toggle="" data-target="#">จัดการเมนู</a>
+                    <a class="nav-link" href="admin_bill.php" data-toggle="" data-target="#">จัดการเมนู</a>
                 </li>
                 <li class="nav-item dropdown">
                     <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -108,44 +107,34 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
                 <div class="col-lg-8 order-lg-1 order-2">
                     <div class="card">
                    <br><br>
-                           
-                                    <h3>  
-                                    <!-- <input type="date" name="brand" id="brand"> -->
-                                        <select name="brand" id="brand">  
-                                            <option value="">กรุณาเลือกวัน</option>  
-                                            <?php echo fill_brand($con); ?>  
-                                        </select>  
-                                        <br /><br />  
-
-                                        <div  class="row" id="show_product" >  
-                                            
-                                        </div>  
-                                    </h3>  
-                                    <h3>  
-                                    <!-- <input type="date" name="brand" id="brand"> -->
-                                    <?php
-                                        $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
-                                        $result = $con->query($sql);
-                                    ?>
-                                        <select name="tae" id="tae">  
-                                            <option value="">กรุณาเลือกวัน</option> 
-                                            <?php
-                                            foreach($result as $data){ 
-                                            ?>
-                                            <option value="<?php echo $data['id'] ?>"><?php echo $data['id'] ?></option>  
-                                            <?php } ?>
-                                             
-                                        </select>  
-                                        <br /><br />  
-                                        
-                                        <div  class="row" id="show_product" >  
-                                            
-                                        </div>  
-                                        <a name="id_data" id="id_data" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  ดูข้อมูล
-</a>
-                                    </h3>  
+                        <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">ลำดับ</th>
+                            <th scope="col">ชื่อเมนู</th>
+                            <th scope="col">รายละเอียด</th>
+                            <th scope="col">ราคา</th>
+                            <th scope="col">รูป</th>
+                            <th scope="col">จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($result as $data){
                             
+                        
+                        ?>
+                            <tr>
+                            <th scope="row"><?php echo $data['product_id']; ?></th>
+                            <td><?php echo $data['product_name']; ?></td>
+                            <td><?php echo $data['product_detail']; ?></td>
+                            <td><?php echo $data['product_price']; ?></td>
+                            <td><img width="70px" height="50px" src="<?php echo $data['product_photo']; ?>" alt=""></td>
+                            <td><?php echo $data['product_photo']; ?></td>
+                            </tr>
+                           
+                        <?php } ?>
+                        </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="col-lg-4 order-1">

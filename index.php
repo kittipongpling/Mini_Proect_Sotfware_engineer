@@ -215,7 +215,7 @@ elseif(isset($_GET["act"]) && $_GET["act"] == "add_orders"){
                                     </tr>
                                 </tbody>
                             </table>
-                            <button class="btn btn-success btn-lg btn-block" type="submit"> <a href="./chekbill.php?id="> สั่งออเดอร์</a></button>
+                             <a class="btn btn-success btn-lg btn-block" href="./chekbill.php"  role="button"> สั่งออเดอร์</a>
                             <button class="btn btn-danger btn-lg btn-block"
                                 onClick="window.location='?act=cancel'">ยกเลิก</button>
                                 </form>
