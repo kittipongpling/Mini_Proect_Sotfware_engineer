@@ -157,10 +157,10 @@ $sql = "SELECT `bill_id` as id,`bill_date` as time FROM `bill` WHERE 1";
                         </div>
                         <div  class="card-body">
                                 <form  enctype="multipart/form-data" class="form-horizontal" action="./upload_photo.php" method="post">
-                                <label for=""></label>ชื่อเมนู <input  style="border:1px solid #ccc; padding:20px; margin-bottom:20px;" type="text" name="name"><br>
+                                <label for=""></label>ชื่อเมนู &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input  style="border:1px solid #ccc; padding:20px; margin-bottom:20px;" type="text" name="name"><br>
                                 <label for=""></label>รายละเอียด <input style="border:1px solid #ccc; padding:20px; margin-bottom:20px;" type="text" name="detail"><br>
                                    
-                                <label for=""></label>ราคา <input style="border:1px solid #ccc; padding:20px; margin-bottom:20px;" type="number" name="price" onchange="setTwoNumberDecimal(event)"  step="0.25" value="0.00" /><br>
+                                <label for=""></label>ราคา &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input style="border:1px solid #ccc; padding:20px; margin-bottom:20px;" type="number" name="price" onchange="setTwoNumberDecimal(event)"  step="0.25" value="0.00" /><br>
                                     <label for=""></label>รูปภาพประกาพ
                                     <input style="border:1px solid #ccc; padding:20px; margin-bottom:20px;" type="file" name="image" ><br>
                                 

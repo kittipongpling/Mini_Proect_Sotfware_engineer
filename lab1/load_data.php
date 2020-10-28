@@ -16,7 +16,7 @@
        FROM
            bill LEFT JOIN orders ON bill.bill_id = orders.bill_id
             LEFT JOIN products ON orders.product_id = products.product_id
-       WHERE bill.bill_date = '".$_POST["brand_id"]."' order by bill.bill_id";
+       WHERE bill.bill_date = '".$_POST["brand_id"]."' group by bill.bill_id";
           
            
       }  
@@ -28,7 +28,7 @@
       $result = mysqli_query($connect, $sql);  
       while($row = mysqli_fetch_array($result))  
       {  
-           $output .= '<div class="col-md-3"><div id="tae"  style="border:1px solid #ccc; padding:20px; margin-bottom:20px;">'.$row["bill_id"].'</div></div>';  
+           $output .= '<div class="col-md-3"><div id="tae"  style="border:1px solid #ccc; padding:20px; margin-bottom:20px;">'.$row["id"].'</div></div>';  
       }  
       echo $output;  
      
